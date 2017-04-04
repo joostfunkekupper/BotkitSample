@@ -1,5 +1,5 @@
-var Botkit = require('Botkit');
-var config = require('config');
+import Botkit from 'Botkit';
+import config from 'config';
 
 var controller = Botkit.facebookbot({
     debug: true,
