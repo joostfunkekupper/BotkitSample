@@ -1,0 +1,7 @@
+# Ignore config folder
+config/
+
+# Ignore node modules
+node_modules/
+
+.DS_Store
