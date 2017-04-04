@@ -1,6 +1,10 @@
 import Botkit from 'Botkit';
 import config from 'config';
+import diet from './modules/diet';
 
+//=========================================================
+// Bot Setup
+//=========================================================
 var controller = Botkit.facebookbot({
     debug: true,
     log: true,
@@ -13,7 +17,15 @@ var controller = Botkit.facebookbot({
 var bot = controller.spawn({
 });
 
-// Prepare API.ai middleware
+controller.setupWebserver(process.env.port || 3000, function(err, webserver) {
+    controller.createWebhookEndpoints(webserver, bot, function() {
+        console.log('info: ** Your bot is online!');
+    });
+});
+
+//=========================================================
+// API.ai Setup
+//=========================================================
 var apiai = require('botkit-middleware-apiai')({
     token: process.env.api_ai_access_token || config.get('API_AI_ACCESS_TOKEN'),
     skip_bot: false
@@ -21,12 +33,9 @@ var apiai = require('botkit-middleware-apiai')({
 
 controller.middleware.receive.use(apiai.receive);
 
-controller.setupWebserver(process.env.port || 3000, function(err, webserver) {
-    controller.createWebhookEndpoints(webserver, bot, function() {
-        console.log('info: ** Your bot is online!');
-    });
-});
-
+//=========================================================
+// Facebook specific options
+//=========================================================
 controller.api.messenger_profile.greeting('Hello! I\'m a Botkit bot!');
 controller.api.messenger_profile.get_started('sample_get_started_payload');
 controller.api.messenger_profile.menu([{
@@ -42,12 +51,15 @@ controller.api.messenger_profile.menu([{
     ]}
 ]);
 
-// apiai.hears for intents. in this example is 'hello' the intent
-controller.hears(['meal.save'], 'message_received', apiai.hears, function(bot, message) {
-    console.log(message.entities);
-    bot.replyWithTyping(message, { text: message.fulfillment.speech });
-});
+//=========================================================
+// Diet module
+//=========================================================
+var dietInstance = new diet(controller, apiai);
+dietInstance.mealSave;
 
+//=========================================================
+// Profile module
+//=========================================================
 controller.hears(['user.name.save'], 'message_received', apiai.hears, function(bot, message) {
   controller.storage.users.get(message.user, function(err, user) {
       if (!user) {
@@ -138,7 +150,9 @@ controller.hears(['name.user.get'], 'message_received', apiai.hears, function(bo
     });
 });
 
+//=========================================================
 // Handle smalltalk by API.ai
+//=========================================================
 controller.hears([
   'smalltalk.agent',
   'smalltalk.appraisal',
