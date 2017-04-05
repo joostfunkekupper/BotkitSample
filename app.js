@@ -26,14 +26,12 @@ controller.setupWebserver(process.env.port || 3000, function(err, webserver) {
 });
 
 //=========================================================
-// API.ai Setup
+// Luis.ai Setup
 //=========================================================
-var nlp = require('botkit-middleware-apiai')({
-    token: process.env.api_ai_access_token || config.get('API_AI_ACCESS_TOKEN'),
-    skip_bot: false
-});
+var nlp = require('botkit-middleware-luis');
+var nlpOptions = { serviceUri: process.env.luisServiceUri || config.get('LUIS_SERVICE_URI') };
 
-controller.middleware.receive.use(nlp.receive);
+controller.middleware.receive.use(nlp.middleware.receive(nlpOptions));
 
 //=========================================================
 // Facebook specific options

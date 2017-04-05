@@ -1,19 +1,20 @@
-function profile(controller, apiai = {}) {
-  this.saveName = controller.hears(['user.name.save'], 'message_received', apiai.hears, function(bot, message) {
+function profile(controller, nlp = {}) {
+  this.saveName = controller.hears(['user.name.save'], 'message_received', nlp.middleware.hereIntent, function(bot, message) {
     controller.storage.users.get(message.user, function(err, user) {
         if (!user) {
             user = {
                 id: message.user,
             };
         }
-        user.name = message.entities['given-name'];
+
+        user.name = message.entities[0].entity;
         controller.storage.users.save(user, function(err, id) {
             bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
         });
     });
   });
 
-  this.getName = controller.hears(['name.user.get'], 'message_received', apiai.hears, function(bot, message) {
+  this.getName = controller.hears(['user.name.get'], 'message_received', nlp.middleware.hereIntent, function(bot, message) {
       controller.storage.users.get(message.user, function(err, user) {
           if (user && user.name) {
               bot.reply(message, 'Your name is ' + user.name);
