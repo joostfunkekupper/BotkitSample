@@ -28,12 +28,12 @@ controller.setupWebserver(process.env.port || 3000, function(err, webserver) {
 //=========================================================
 // API.ai Setup
 //=========================================================
-var apiai = require('botkit-middleware-apiai')({
+var nlp = require('botkit-middleware-apiai')({
     token: process.env.api_ai_access_token || config.get('API_AI_ACCESS_TOKEN'),
     skip_bot: false
 });
 
-controller.middleware.receive.use(apiai.receive);
+controller.middleware.receive.use(nlp.receive);
 
 //=========================================================
 // Facebook specific options
@@ -56,9 +56,9 @@ controller.api.messenger_profile.menu([{
 //=========================================================
 // Load modules
 //=========================================================
-var dietInstance = new diet(controller, apiai);
-var profileInstance = new profile(controller, apiai);
-var weightInstance = new weight(controller, apiai);
+var dietInstance = new diet(controller, nlp);
+var profileInstance = new profile(controller, nlp);
+var weightInstance = new weight(controller, nlp);
 
 //=========================================================
 // Handle smalltalk by API.ai
@@ -69,7 +69,7 @@ controller.hears([
   'smalltalk.dialog',
   'smalltalk.greetings',
   'smalltalk.user',
-  'smalltalk.topics'], 'message_received', apiai.action, function(bot, message) {
+  'smalltalk.topics'], 'message_received', nlp.action, function(bot, message) {
     // Use the response from API.ai as the return message for any small talk
     bot.reply(message, { text: message.fulfillment.speech });
 });
