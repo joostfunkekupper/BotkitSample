@@ -13,7 +13,7 @@ function profile(controller, apiai = {}) {
     });
   });
 
-  this.getName = controller.hears(['name.user.get'], 'message_received', apiai.hears, function(bot, message) {
+  this.getName = controller.hears(['user.name.get'], 'message_received', apiai.hears, function(bot, message) {
       controller.storage.users.get(message.user, function(err, user) {
           if (user && user.name) {
               bot.reply(message, 'Your name is ' + user.name);
