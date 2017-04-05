@@ -33,6 +33,15 @@ var nlp = require('botkit-middleware-apiai')({
     skip_bot: false
 });
 
+//=========================================================
+// Wit.ai Setup
+//=========================================================
+var nlp = require('botkit-witai')({
+    accessToken: process.env.wit_ai_access_token || config.get('WIT_AI_ACCESS_TOKEN'),
+    minConfidence: 0.6,
+    logLevel: 'debug'
+});
+
 controller.middleware.receive.use(nlp.receive);
 
 //=========================================================
