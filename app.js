@@ -2,6 +2,7 @@ import Botkit from 'Botkit';
 import config from 'config';
 import diet from './modules/diet';
 import profile from './modules/profile';
+import weight from './modules/weight';
 
 //=========================================================
 // Bot Setup
@@ -57,6 +58,7 @@ controller.api.messenger_profile.menu([{
 //=========================================================
 var dietInstance = new diet(controller, apiai);
 var profileInstance = new profile(controller, apiai);
+var weightInstance = new weight(controller, apiai);
 
 //=========================================================
 // Handle smalltalk by API.ai
