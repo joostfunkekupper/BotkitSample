@@ -1,4 +1,5 @@
 import Botkit from 'Botkit';
+import botkitStoragePostgres from 'botkit-storage-postgres';
 import config from 'config';
 import diet from './modules/diet';
 import profile from './modules/profile';
@@ -14,6 +15,12 @@ var controller = Botkit.facebookbot({
     verify_token: process.env.verify_token || config.get('FACEBOOK_VERIFY_TOKEN'),
     app_secret: process.env.app_secret || config.get('FACEBOOK_APP_SECRET'),
     validate_requests: true, // Refuse any requests that don't come from FB on your receive webhook, must provide FB_APP_SECRET in environment variables
+    storage: botkitStoragePostgres({
+      host: 'localhost',
+      database: 'botkitsample',
+      user: process.env.db_user || config.get('DB_USER'),
+      password: process.env.db_password || config.get('DB_PASSWORD'),
+    })
 });
 
 var bot = controller.spawn({
