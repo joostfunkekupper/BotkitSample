@@ -1,6 +1,9 @@
+'use strict';
+
+require('dotenv').config();
+
 import Botkit from 'Botkit';
 import botkitStoragePostgres from 'botkit-storage-postgres';
-import config from 'config';
 import diet from './modules/diet';
 import profile from './modules/profile';
 import weight from './modules/weight';
@@ -11,15 +14,15 @@ import weight from './modules/weight';
 var controller = Botkit.facebookbot({
     debug: true,
     log: true,
-    access_token: process.env.page_token || config.get('FACEBOOK_PAGE_ACCESS_TOKEN'),
-    verify_token: process.env.verify_token || config.get('FACEBOOK_VERIFY_TOKEN'),
-    app_secret: process.env.app_secret || config.get('FACEBOOK_APP_SECRET'),
+    access_token: process.env.page_token,
+    verify_token: process.env.verify_token,
+    app_secret: process.env.app_secret,
     validate_requests: false, // Refuse any requests that don't come from FB on your receive webhook, must provide FB_APP_SECRET in environment variables
     storage: botkitStoragePostgres({
       host: 'localhost',
       database: 'botkitsample',
-      user: process.env.db_user || config.get('DB_USER'),
-      password: process.env.db_password || config.get('DB_PASSWORD'),
+      user: process.env.db_user,
+      password: process.env.db_password,
     })
 });
 
@@ -36,7 +39,7 @@ controller.setupWebserver(process.env.port || 3000, function(err, webserver) {
 // API.ai Setup
 //=========================================================
 var nlp = require('botkit-middleware-apiai')({
-    token: process.env.api_ai_access_token || config.get('API_AI_ACCESS_TOKEN'),
+    token: process.env.api_ai_access_token,
     skip_bot: false
 });
 

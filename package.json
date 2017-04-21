@@ -11,11 +11,15 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "botbuilder": "^3.7.0",
+    "body-parser": "^1.17.1",
     "botkit": "^0.5.2",
     "botkit-middleware-apiai": "^0.1.1",
     "botkit-storage-postgres": "^0.1.0",
-    "config": "^1.25.1"
+    "config": "^1.25.1",
+    "debug": "^2.6.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
