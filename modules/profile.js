@@ -1,5 +1,5 @@
-function profile(controller, apiai = {}) {
-  this.saveName = controller.hears(['user.name.save'], 'message_received', apiai.hears, function(bot, message) {
+export default function(controller, apiai = {}) {
+  controller.hears(['user.name.save'], 'message_received', apiai.hears, function(bot, message) {
     controller.storage.users.get(message.user, function(err, user) {
         if (!user) {
             user = {
@@ -13,7 +13,7 @@ function profile(controller, apiai = {}) {
     });
   });
 
-  this.getName = controller.hears(['user.name.get'], 'message_received', apiai.hears, function(bot, message) {
+  controller.hears(['user.name.get'], 'message_received', apiai.hears, function(bot, message) {
       controller.storage.users.get(message.user, function(err, user) {
           if (user && user.name) {
               bot.reply(message, 'Your name is ' + user.name);
@@ -36,7 +36,7 @@ function profile(controller, apiai = {}) {
                             }]
                           },
                           [{
-                              pattern: 'yes',
+                              pattern: bot.utterances.yes,
                               callback: function(response, convo) {
                                 // since no further messages are queued after this,
                                 // the conversation will end naturally with status == 'completed'
@@ -44,7 +44,7 @@ function profile(controller, apiai = {}) {
                               }
                             },
                             {
-                              pattern: 'no',
+                              pattern: bot.utterances.no,
                               callback: function(response, convo) {
                                 // stop the conversation. this will cause it to end with status == 'stopped'
                                 convo.stop();
@@ -89,5 +89,3 @@ function profile(controller, apiai = {}) {
       });
   });
 }
-
-module.exports = profile;

@@ -7,6 +7,8 @@ import botkitStoragePostgres from 'botkit-storage-postgres';
 import diet from './modules/diet';
 import profile from './modules/profile';
 import weight from './modules/weight';
+import welcome from './modules/welcome';
+import height from './modules/height';
 
 //=========================================================
 // Bot Setup
@@ -26,49 +28,23 @@ var controller = Botkit.facebookbot({
     })
 });
 
-var bot = controller.spawn({
-});
+// Set up an Express-powered webserver to expose oauth and webhook endpoints
+require(__dirname + '/components/express_webserver.js')(controller);
 
-controller.setupWebserver(process.env.port || 3000, function(err, webserver) {
-    controller.createWebhookEndpoints(webserver, bot, function() {
-        console.log('info: ** Your bot is online!');
-    });
-});
+// Set up API.ai middleware to listen to incoming messages
+var nlp = require(__dirname + '/components/apiai_middleware.js')(controller);
 
-//=========================================================
-// API.ai Setup
-//=========================================================
-var nlp = require('botkit-middleware-apiai')({
-    token: process.env.api_ai_access_token,
-    skip_bot: false
-});
-
-controller.middleware.receive.use(nlp.receive);
-
-//=========================================================
-// Facebook specific options
-//=========================================================
-controller.api.messenger_profile.greeting('Hello! I\'m a Botkit bot!');
-controller.api.messenger_profile.get_started('sample_get_started_payload');
-controller.api.messenger_profile.menu([{
-    "locale":"default",
-    "composer_input_disabled":true,
-    "call_to_actions":[
-        {
-            "type":"web_url",
-            "title":"Botkit Docs",
-            "url":"https://github.com/howdyai/botkit/blob/master/readme-facebook.md",
-            "webview_height_ratio":"full"
-        }
-    ]}
-]);
+// Set up Facebook "thread settings" such as get started button, persistent menu
+require(__dirname + '/components/thread_settings.js')(controller);
 
 //=========================================================
 // Load modules
 //=========================================================
-var dietInstance = new diet(controller, nlp);
-var profileInstance = new profile(controller, nlp);
-var weightInstance = new weight(controller, nlp);
+welcome(controller, nlp);
+diet(controller, nlp);
+profile(controller, nlp);
+weight(controller, nlp);
+height(controller, nlp);
 
 //=========================================================
 // Handle smalltalk by API.ai
@@ -78,6 +54,7 @@ controller.hears([
   'smalltalk.appraisal',
   'smalltalk.dialog',
   'smalltalk.greetings',
+  'smalltalk.person',
   'smalltalk.user',
   'smalltalk.topics'], 'message_received', nlp.action, function(bot, message) {
     // Use the response from API.ai as the return message for any small talk
