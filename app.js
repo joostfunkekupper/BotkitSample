@@ -14,7 +14,7 @@ var controller = Botkit.facebookbot({
     access_token: process.env.page_token || config.get('FACEBOOK_PAGE_ACCESS_TOKEN'),
     verify_token: process.env.verify_token || config.get('FACEBOOK_VERIFY_TOKEN'),
     app_secret: process.env.app_secret || config.get('FACEBOOK_APP_SECRET'),
-    validate_requests: true, // Refuse any requests that don't come from FB on your receive webhook, must provide FB_APP_SECRET in environment variables
+    validate_requests: false, // Refuse any requests that don't come from FB on your receive webhook, must provide FB_APP_SECRET in environment variables
     storage: botkitStoragePostgres({
       host: 'localhost',
       database: 'botkitsample',
