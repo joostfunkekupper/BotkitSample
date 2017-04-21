@@ -9,6 +9,7 @@ import profile from './modules/profile';
 import weight from './modules/weight';
 import welcome from './modules/welcome';
 import height from './modules/height';
+import system from './modules/system';
 
 //=========================================================
 // Bot Setup
@@ -45,6 +46,7 @@ diet(controller, nlp);
 profile(controller, nlp);
 weight(controller, nlp);
 height(controller, nlp);
+system(controller);
 
 //=========================================================
 // Handle smalltalk by API.ai
