@@ -7,18 +7,18 @@ module.exports = function(controller) {
         "call_to_actions":[
             {
                 "type":"postback",
-                "title":"Hello",
-                "payload":"hello"
+                "title":"How am I going?",
+                "payload":"HOW_AM_I_GOING"
             },
             {
                 "type":"postback",
-                "title":"Help",
-                "payload":"help"
+                "title":"I'm hungry",
+                "payload":"HUNGRY"
             },
             {
-              "type":"web_url",
-              "title":"Botkit Docs",
-              "url":"https://github.com/howdyai/botkit/blob/master/readme-facebook.md"
+                "type":"postback",
+                "title":"Help!",
+                "payload":"HELP"
             },
         ]}
     ]);
