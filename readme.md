@@ -9,3 +9,11 @@ TODO.
 
 ## API.ai setup
 TODO.
+
+## Run bot
+
+`npm start`
+
+## Run ngrok
+
+`ngrok http 3000`
