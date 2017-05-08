@@ -25,12 +25,12 @@ export default function(controller, apiai = {}) {
                           convo.ask({
                             text: 'You want me to call you `' + response.text + '`?',
                             quick_replies: [{
-                              context_type: 'text',
+                              content_type: 'text',
                               title: 'Yes',
                               payload: 'yes',
                             },
                             {
-                              context_type: 'text',
+                              content_type: 'text',
                               title: 'No',
                               payload: 'no',
                             }]

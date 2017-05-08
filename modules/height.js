@@ -13,12 +13,12 @@ export default function(controller, nlp) {
         bot.reply(message, {
           text: "Thank you, I've updated your profile",
           quick_replies: [{
-            context_type: 'text',
+            content_type: 'text',
             title: 'What is my BMI?',
             payload: 'what is my bmi',
           },
           {
-            context_type: 'text',
+            content_type: 'text',
             title: 'How do you calculate my BMI?',
             payload: 'how do you calculate my bmi',
           }]
