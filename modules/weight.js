@@ -13,12 +13,12 @@ export default function(controller, nlp) {
                 bot.reply(message, {
                   text: "Thank you. Knowing your own weight will help you reach your goals",
                   quick_replies: [{
-                    context_type: 'text',
+                    content_type: 'text',
                     title: 'What is my BMI?',
                     payload: 'what is my bmi',
                   },
                   {
-                    context_type: 'text',
+                    content_type: 'text',
                     title: 'How do you calculate my BMI?',
                     payload: 'how do you calculate my bmi',
                   }]
@@ -36,17 +36,17 @@ export function askWeight(bot, message, say = '', cb) {
       convo.ask({
         text: 'What is your current weight in kilograms?',
         quick_replies: [{
-          context_type: 'text',
+          content_type: 'text',
           title: '70kg',
           payload: '70kg',
         },
         {
-          context_type: 'text',
+          content_type: 'text',
           title: '80kg',
           payload: '80kg',
         },
         {
-          context_type: 'text',
+          content_type: 'text',
           title: '90kg',
           payload: '90kg',
         }]

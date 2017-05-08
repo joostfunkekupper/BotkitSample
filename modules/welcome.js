@@ -25,12 +25,12 @@ export default function(controller, nlp) {
         convo.ask({
           text: 'That looks like a banana to me, is that correct?',
           quick_replies: [{
-            context_type: 'text',
+            content_type: 'text',
             title: 'Yes',
             payload: 'yes',
           },
           {
-            context_type: 'text',
+            content_type: 'text',
             title: 'No',
             payload: 'no',
           }]
@@ -76,12 +76,12 @@ export default function(controller, nlp) {
         convo.ask({
           text: 'That looks like a chocolate bar to me, is that correct?',
           quick_replies: [{
-            context_type: 'text',
+            content_type: 'text',
             title: 'Yes',
             payload: 'yes',
           },
           {
-            context_type: 'text',
+            content_type: 'text',
             title: 'No',
             payload: 'no',
           }]
@@ -126,22 +126,22 @@ export default function(controller, nlp) {
       convo.ask({
         text: "And how long do you think you'd need to walk to work off those calories?",
         quick_replies: [{
-          context_type: 'text',
+          content_type: 'text',
           title: '10 min',
           payload: '10 min',
         },
         {
-          context_type: 'text',
+          content_type: 'text',
           title: '30 min',
           payload: '30 min',
         },
         {
-          context_type: 'text',
+          content_type: 'text',
           title: '1 hour',
           payload: '1 hour',
         },
         {
-          context_type: 'text',
+          content_type: 'text',
           title: '2 hours',
           payload: '2 hours',
         },]
@@ -162,22 +162,22 @@ export default function(controller, nlp) {
       convo.ask({
           text: "What kind of food do you usually have for dinner?",
           quick_replies: [{
-            context_type: 'text',
+            content_type: 'text',
             title: 'Japanese',
             payload: 'Japanese',
           },
           {
-            context_type: 'text',
+            content_type: 'text',
             title: 'Indian',
             payload: 'Indian',
           },
           {
-            context_type: 'text',
+            content_type: 'text',
             title: 'Vegetarian',
             payload: 'vegetarian',
           },
           {
-            context_type: 'text',
+            content_type: 'text',
             title: 'Meat and veg',
             payload: 'meat and veg',
           },
@@ -198,12 +198,12 @@ export default function(controller, nlp) {
       convo.ask({
           text: "If you'd like some recipes or meal plan, just ask",
           quick_replies: [{
-            context_type: 'text',
+            content_type: 'text',
             title: 'Recipes',
             payload: 'recipes',
           },
           {
-            context_type: 'text',
+            content_type: 'text',
             title: 'Meal plan',
             payload: 'meal plan',
           },

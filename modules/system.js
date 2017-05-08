@@ -5,7 +5,7 @@ export default function(controller) {
             convo.addQuestion({
                 text: "I think you know what the problem is just as well as I do",
                 quick_replies: [{
-                  context_type: 'text',
+                  content_type: 'text',
                   title: "What are you talking about?",
                   payload: 'talking',
                 },
@@ -18,7 +18,7 @@ export default function(controller) {
             convo.ask({
                 text: "I\'m sorry Dave, I\'m affraid I can\'t do that",
                 quick_replies: [{
-                  context_type: 'text',
+                  content_type: 'text',
                   title: "What's the problem?",
                   payload: 'problem',
                 },
